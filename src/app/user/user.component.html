@@ -1,0 +1,200 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color: aliceblue;">User</h1>
+        <div class="d-flex">
+            <button (click)="clickAddUser()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add User</button>
+        </div>
+    </div>
+</nav>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            
+            <th scope="col">Id</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Organization Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Updated By</th>
+            <th scope="col">Status</th>
+            <th scope="col">Confirmation Date</th>
+            <th scope="col">Confirmation Status</th>
+            <th scope="col">Freeze</th>
+            <th scope="col">Action</th>
+            
+        </tr>
+
+        <tr *ngFor="let com of lstcomments">
+            <td>{{com.user_id}}</td>
+            <td>{{com.user_first_name}}</td>
+            <td>{{com.user_last_name}}</td>
+            <td>{{com.user_organization_name}}</td>
+            <td>{{com.user_email}}</td>
+            <td>{{com.user_photo}}</td>
+            <td>{{com.user_created_date}}</td>
+            <td>{{com.user_created_by}}</td>
+            <td>{{com.user_updated_date}}</td>
+            <td>{{com.user_updated_by}}</td>
+            <td>{{com.user_status}}</td>
+            <td>{{com.user_confirmation_date}}</td>
+            <td>{{com.user_confirmation_status}}</td>
+            <td>{{com.user_freeze}}</td>
+            <td>
+                <button (click)="editUserDetails(com)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+                <button (click)="deleteUserDetails(com.user_id)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+          </tr>
+           
+    </thead>
+</table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue"> 
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">First Name</label>
+            <input type="text" formControlName="user_first_name" class="form-control" id="exampleInputEmail1" >
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Last Name</label>
+            <input type="text"  formControlName="user_last_name" class="form-control" id="exampleInputPassword1">
+          </div> 
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Organization Name</label>
+            <input type="text"  formControlName="user_organization_name" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Email</label>
+            <input type="text"  formControlName="user_email" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Created By</label>
+            <input type="text"  formControlName="user_created_by" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="user_status" class="form-label">User Status</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio"formControlName="user_status" value="true" id="user_status">Yes
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="user_status" value="false" id="user_status">No
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="user_status" class="form-label">User Confirmation Status</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="user_confirmation_status" value="true" id="user_confirmation_status">Yes
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="user_confirmation_status" value="false" id="user_confirmation_status">No
+              </div>
+              </div>
+              <div class="mb-3">
+                <label for="user_freeze" class="form-label">User Freeze</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" formControlName="user_freeze" value="true" id="user_freeze">Yes
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" formControlName="user_freeze" value="false" id="user_freeze">No
+                </div>
+                </div>
+          
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" *ngIf="showAdd" (click)="postUserDetails()" class="btn btn-primary">Add</button>
+        <button type="button" *ngIf="showUpdate" (click)="updateUserDetails()" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+  <!--
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         
+            <form>
+                <div class="mb-3">
+                  <label for="user_first_name"  class="form-label">First Name</label>
+                  <input type="text" class="form-control" name="user_first_name"  id="user_first_name">
+                 
+                </div>
+                <div class="mb-3">
+                  <label for="user_last_name" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" name="user_last_name" id="user_last_name">
+                </div>
+                <div class="mb-3">
+                  <label for="user_organization_name" class="form-label">Organization Name</label>
+                  <input type="text" class="form-control" name="user_organization_name" id="user_organization_name">
+                </div>
+                <div class="mb-3">
+                    <label for="user_email" class="form-label">Email</label>
+                    <input type="text" class="form-control" name="user_email" id="user_email">
+                </div>
+                <div class="mb-3">
+                    <label for="user_created_by" class="form-label">Created By</label>
+                    <input type="text" class="form-control" name="user_created_by" id="user_created_by">
+                </div>
+                <div class="mb-3">
+                <label for="user_status" class="form-label">User Status</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="user_status" value="true" id="user_status">Yes
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="user_status" value="false" id="user_status">No
+                </div>
+                </div>
+                <div class="mb-3">
+                  <label for="user_status" class="form-label">User Confirmation Status</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="user_confirmation_status" value="true" id="user_confirmation_status">Yes
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="user_confirmation_status" value="false" id="user_confirmation_status">No
+                  </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="user_freeze" class="form-label">User Confirmation Status</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="user_freeze" value="true" id="user_freeze">Yes
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="user_freeze" value="false" id="user_freeze">No
+                    </div>
+                    </div>
+                
+                <div class="model-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="model">Close</button>
+                  <button type="button" (onclick)="postUserDetails()" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>-->
